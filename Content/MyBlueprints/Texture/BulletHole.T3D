@@ -1,0 +1,53 @@
+Begin Object Class=/Script/Engine.Material Name="BulletHole"
+   Begin Object Class=/Script/UnrealEd.SceneThumbnailInfoWithPrimitive Name="SceneThumbnailInfoWithPrimitive_0"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionTextureSample Name="MaterialExpressionTextureSample_2"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionTextureSample Name="MaterialExpressionTextureSample_0"
+   End Object
+   Begin Object Class=/Script/Engine.MaterialExpressionConstant Name="MaterialExpressionConstant_0"
+   End Object
+   Begin Object Name="SceneThumbnailInfoWithPrimitive_0"
+   End Object
+   Begin Object Name="MaterialExpressionTextureSample_2"
+      Texture=Texture2D'"/Game/Materials/BulletHoleNormal.BulletHoleNormal"'
+      SamplerType=SAMPLERTYPE_Normal
+      MaterialExpressionEditorX=-400
+      MaterialExpressionEditorY=288
+      MaterialExpressionGuid=83FBA85948483097D20BF5BDFE7EA7D4
+      Material=Material'"BulletHole"'
+   End Object
+   Begin Object Name="MaterialExpressionTextureSample_0"
+      Texture=Texture2D'"/Game/Materials/hiclipart_com.hiclipart_com"'
+      MaterialExpressionEditorX=-384
+      MaterialExpressionEditorY=48
+      MaterialExpressionGuid=98E247034491BB01E519DEAA209716E2
+      Material=Material'"BulletHole"'
+   End Object
+   Begin Object Name="MaterialExpressionConstant_0"
+      R=0.750000
+      MaterialExpressionEditorX=-128
+      MaterialExpressionEditorY=80
+      MaterialExpressionGuid=AAEB1E7B409CBA32B6F2408215EB7C4E
+      Material=Material'"BulletHole"'
+   End Object
+   BaseColor=(Expression=MaterialExpressionTextureSample'"MaterialExpressionTextureSample_0"',Mask=1,MaskR=1,MaskG=1,MaskB=1)
+   Roughness=(Expression=MaterialExpressionConstant'"MaterialExpressionConstant_0"')
+   Normal=(Expression=MaterialExpressionTextureSample'"MaterialExpressionTextureSample_2"',Mask=1,MaskR=1,MaskG=1,MaskB=1)
+   EmissiveColor=(Mask=1,MaskR=1,MaskG=1,MaskB=1)
+   Opacity=(Expression=MaterialExpressionTextureSample'"MaterialExpressionTextureSample_0"',OutputIndex=4,Mask=1,MaskA=1)
+   MaterialDomain=MD_DeferredDecal
+   BlendMode=BLEND_Translucent
+   DecalBlendMode=DBM_DBuffer_ColorNormalRoughness
+   EditorX=48
+   EditorY=-16
+   Expressions(0)=MaterialExpressionTextureSample'"MaterialExpressionTextureSample_0"'
+   Expressions(1)=MaterialExpressionTextureSample'"MaterialExpressionTextureSample_2"'
+   Expressions(2)=MaterialExpressionConstant'"MaterialExpressionConstant_0"'
+   bCanMaskedBeAssumedOpaque=True
+   StateId=D5F5C8204CD751E94A7536A4699159A1
+   ReferencedTextureGuids(0)=7483AAFF47284025CA1FB6A46E51CF60
+   ReferencedTextureGuids(1)=D8CBF960464D464F4BD98F8970F36959
+   ThumbnailInfo=SceneThumbnailInfoWithPrimitive'"SceneThumbnailInfoWithPrimitive_0"'
+   LightingGuid=A7B89A394A31ACDC29464AA800D86466
+End Object
