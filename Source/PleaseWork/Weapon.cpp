@@ -93,7 +93,7 @@ void AWeapon::Fire()
 		BurstShotFired++;
 	}
 
-	if (BurstShotFired == BulletsPerBurst && !HasFiredBurst)
+	if (BurstShotFired == BulletsPerBurst && !HasFiredBurst || Owner == nullptr)
 	{
 		GetWorld()->GetTimerManager().ClearTimer(BurstHandle);
 		HasFiredBurst = true;

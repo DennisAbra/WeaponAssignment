@@ -213,6 +213,7 @@ void AMyProjectCharacter::DropCurrentWeapon()
 	if (CurrentWeapon())
 	{
 		//Make sure the weapon gets effected by gravity
+		CurrentWeapon()->Owner = nullptr;
 		CurrentWeapon()->Mesh->SetSimulatePhysics(true);
 		CurrentWeapon()->Mesh->SetVisibility(true);
 		CurrentWeapon()->BoxCollider->SetActive(true);
