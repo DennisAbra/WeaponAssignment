@@ -83,11 +83,6 @@ public:
 	bool IsReloading = false;
 	class AMyProjectCharacter* Owner;
 
-	//TODO
-	//IsProjectileWeapon
-	//ForwardForce
-	//BulletToShoot
-
 	bool HasFiredBurst = false;
 	int BurstShotFired = 1;
 	bool IsBursting = false;

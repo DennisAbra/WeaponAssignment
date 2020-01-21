@@ -129,11 +129,6 @@ void AWeapon::Fire()
 			RecoilComp->StartRecoil();
 		}
 
-		//if (BurstComp)
-		//{
-		//	BurstComp->StartBurst();
-		//}
-
 		if (FireType == EFireTypeEnum::FTBurst && HasFiredBurst || FireType != EFireTypeEnum::FTBurst)
 		{
 			TimerDelegate.BindLambda([this]()
@@ -155,11 +150,9 @@ void AWeapon::Fire()
 			UGameplayStatics::PlaySoundAtLocation(this, FireSound, GetActorLocation());
 		}
 
-		//TODO GetPlayerCharacter
 		
 		if (FireAnimation != NULL)
 		{
-			// Get the animation object for the arms mesh
 			UAnimInstance* AnimInstance = Cast<AMyProjectCharacter>(GetOwner())->Mesh1P->GetAnimInstance();
 			if (AnimInstance != NULL)
 			{

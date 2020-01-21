@@ -181,8 +181,6 @@ void AMyProjectCharacter::OnFire()
 	if (CurrentWeapon() && CurrentWeapon()->CanShoot && CurrentWeapon()->FireType == EFireTypeEnum::FTSemi)
 	{
 		CurrentWeapon()->Fire();
-		//TODO MOVE TO WEAPON
-		// try and play the sound if specified
 	}
 }
 
@@ -198,15 +196,7 @@ void AMyProjectCharacter::Fire(float Value)
 		{
 			if (!CurrentWeapon()->HasFiredBurst)
 			{
-				//CurrentWeapon()->Fire();
 				CurrentWeapon()->StartBurstTimer();
-				//GetWorldTimerManager().SetTimer(TimerHandle, CurrentWeapon(), &AWeapon::Fire, CurrentWeapon()->TimeUntilNextBurstShot, true);
-				//Pull out The timer for next shot to a function
-				//THIS timer should call a function that check the exit parameters for
-				//UE_LOG(LogTemp, Display, TEXT("Timer started"));
-				//Denna nollställer sig själv
-				//Kan inte kallas i en forloop
-				// Måste nollställa den manuellt efter timer har gjort sitt jobb
 			}
 		}
 	}

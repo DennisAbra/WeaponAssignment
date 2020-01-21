@@ -40,25 +40,7 @@ void AProjectile::Tick(float DeltaTime)
 
 }
 
-//void AProjectile::OnBeginOverlap(UPrimitiveComponent * OverlappedComp, AActor * OtherActor, UPrimitiveComponent * OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult & SweepResult)
-//{
-//	if ((OtherActor != NULL) && (OtherActor != this) && (OtherComp != NULL))
-//	{
-//		if (Cast<IDamageableInterface>(OtherActor)) {
-//			Cast<IDamageableInterface>(OtherActor)->Execute_ApplyDamage(OtherActor, 3);
-//			Destroy();
-//		}
-//
-//		//if (OtherComp->IsSimulatingPhysics()) {
-//		//	OtherComp->AddImpulseAtLocation(GetVelocity() * 100.0f, GetActorLocation());
-//		//	Destroy();
-//		//}
-//		FRotator rotator = SweepResult.Normal.Rotation();
-//		rotator.Pitch -= 90;
-//		GetWorld()->SpawnActor<ABulletHoleDecal>(BulletHole, SweepResult.ImpactPoint, rotator);
-//		
-//	}
-//}
+
 
 void AProjectile::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit)
 {
@@ -70,10 +52,6 @@ void AProjectile::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimi
 				Destroy();
 			}
 
-			//if (OtherComp->IsSimulatingPhysics()) {
-			//	OtherComp->AddImpulseAtLocation(GetVelocity() * 100.0f, GetActorLocation());
-			//	Destroy();
-			//}
 			FRotator rotator = Hit.Normal.Rotation();
 			rotator.Pitch -= 90;
 			GetWorld()->SpawnActor<ABulletHoleDecal>(BulletHole, Hit.ImpactPoint, rotator);
