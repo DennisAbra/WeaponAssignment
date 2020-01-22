@@ -113,10 +113,9 @@ void AWeapon::HandleBurstExitConditions()
 
 	if (BurstShotFired == BulletsPerBurst && !HasFiredBurst || Owner == nullptr)
 	{
-		GetWorld()->GetTimerManager().ClearTimer(BurstHandle);
+		GetWorldTimerManager().ClearTimer(BurstHandle);
 		HasFiredBurst = true;
 		BurstShotFired = 1;
-		UE_LOG(LogTemp, Display, TEXT("Reset"));
 	}
 }
 
@@ -151,7 +150,7 @@ void AWeapon::HandleShootingComponents()
 
 void AWeapon::HandleCooldownBetweenShots()
 {
-	if (FireType == EFireTypeEnum::FTBurst && HasFiredBurst || FireType != EFireTypeEnum::FTBurst)
+	if ((FireType == EFireTypeEnum::FTBurst && HasFiredBurst) || FireType != EFireTypeEnum::FTBurst)
 	{
 		TimerDelegate.BindLambda([this]()
 		{
@@ -163,7 +162,7 @@ void AWeapon::HandleCooldownBetweenShots()
 		CanShoot = false;
 		if (!CanShoot)
 		{
-			GetWorld()->GetTimerManager().SetTimer(TimerHandle, TimerDelegate, TimeUntillNextShot, false);
+			GetWorldTimerManager().SetTimer(TimerHandle, TimerDelegate, TimeUntillNextShot, false);
 		}
 	}
 }
@@ -214,7 +213,7 @@ void AWeapon::StartBurstTimer()
 	{
 		Fire();
 		IsBursting = true;
-		GetWorld()->GetTimerManager().SetTimer(BurstHandle, this, &AWeapon::Fire, TimeUntilNextBurstShot, true);
+		GetWorldTimerManager().SetTimer(BurstHandle, this, &AWeapon::Fire, TimeUntilNextBurstShot, true);
 	}
 }
 
