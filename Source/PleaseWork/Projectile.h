@@ -39,4 +39,7 @@ public:
 
 	UFUNCTION()
 		void OnHit(UPrimitiveComponent* HitComp, AActor* OtherACtor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit);
+
+	UFUNCTION(BlueprintCallable)
+		void HandleHitEvents(FHitResult Hit, AActor* OtherActor);
 };

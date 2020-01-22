@@ -52,6 +52,7 @@ void AWeapon::OnConstruction(const FTransform& Transform)
 // Called when the game starts or when spawned
 void AWeapon::BeginPlay()
 {
+	// CheckStartParamaters
 	if (!this->ActorHasTag("Weapon"))
 	{
 		this->Tags.Add("Weapon");
@@ -68,7 +69,7 @@ void AWeapon::BeginPlay()
 		TimeUntilNextBurstShot = 0.001f;
 		UE_LOG(LogTemp, Warning, TEXT("TimeUntillBurst Can't be 0 or lower"));
 	}
-
+	//
 	HitScanComp = FindComponentByClass<UHitscanComponent>();
 
 	ProjectileComp = FindComponentByClass<UProjectileComponent>();
@@ -88,6 +89,23 @@ void AWeapon::Tick(float DeltaTime)
 
 void AWeapon::Fire()
 {
+	HandleBurstExitConditions();
+
+	if (CurrentAmmo >= 0 && !IsReloading || InfiniteAmmo)
+	{
+		HandleShootingComponents();
+		HandleCooldownBetweenShots();
+		CurrentAmmo--;
+	}
+	else
+	{
+		StartReloadTimer();
+	}
+}
+
+void AWeapon::HandleBurstExitConditions()
+{
+	//HandleBurstExitConditions
 	if (FireType == EFireTypeEnum::FTBurst && IsBursting)
 	{
 		BurstShotFired++;
@@ -100,82 +118,76 @@ void AWeapon::Fire()
 		BurstShotFired = 1;
 		UE_LOG(LogTemp, Display, TEXT("Reset"));
 	}
-
-	if (CurrentAmmo >= 0 && !IsReloading || InfiniteAmmo)
-	{
-		if (HitScanComp)
-		{
-			FHitResult Result = HitScanComp->Fire();
-
-			if (Result.bBlockingHit) {
-
-				FVector location = Result.ImpactPoint;
-				FRotator rotator = Result.Normal.Rotation();
-				rotator.Pitch -= 90;
-
-				GetWorld()->SpawnActor<ABulletHoleDecal>(BulletHole, location, rotator);
-			}
-			VFX->ActivateSystem(true);
-		}
-
-		if (ProjectileComp)
-		{
-			ProjectileComp->Fire();
-			VFX->ActivateSystem(true);
-		}
-
-		if (RecoilComp)
-		{
-			RecoilComp->StartRecoil();
-		}
-
-		if (FireType == EFireTypeEnum::FTBurst && HasFiredBurst || FireType != EFireTypeEnum::FTBurst)
-		{
-			TimerDelegate.BindLambda([this]()
-			{
-				IsBursting = false;
-				CanShoot = true;
-				HasFiredBurst = false;
-			});
-
-			CanShoot = false;
-			if (!CanShoot)
-			{
-				GetWorld()->GetTimerManager().SetTimer(TimerHandle, TimerDelegate, TimeUntillNextShot, false);
-			}
-		}
-
-		if (FireSound != NULL)
-		{
-			UGameplayStatics::PlaySoundAtLocation(this, FireSound, GetActorLocation());
-		}
-
-		
-		if (FireAnimation != NULL)
-		{
-			UAnimInstance* AnimInstance = Cast<AMyProjectCharacter>(GetOwner())->Mesh1P->GetAnimInstance();
-			if (AnimInstance != NULL)
-			{
-				AnimInstance->Montage_Play(FireAnimation, 1.f);
-			}
-		}
-
-		CurrentAmmo--;
-	}
-	else
-	{
-		StartReloadTimer();
-	}
-
 }
 
-void AWeapon::Reload()
+void AWeapon::HandleShootingComponents()
 {
-	CurrentAmmo = MaxAmmo;
-	HasFiredBurst = false;
-	CanShoot = true;
-	IsReloading = false;
+	if (HitScanComp)
+	{
+		FHitResult Result = HitScanComp->Fire();
+
+		if (Result.bBlockingHit) {
+
+			FVector location = Result.ImpactPoint;
+			FRotator rotator = Result.Normal.Rotation();
+			rotator.Pitch -= 90;
+
+			GetWorld()->SpawnActor<ABulletHoleDecal>(BulletHole, location, rotator);
+		}
+		VFX->ActivateSystem(true);
+	}
+
+	if (ProjectileComp)
+	{
+		ProjectileComp->Fire();
+		VFX->ActivateSystem(true);
+	}
+
+	if (RecoilComp)
+	{
+		RecoilComp->StartRecoil();
+	}
 }
+
+void AWeapon::HandleCooldownBetweenShots()
+{
+	if (FireType == EFireTypeEnum::FTBurst && HasFiredBurst || FireType != EFireTypeEnum::FTBurst)
+	{
+		TimerDelegate.BindLambda([this]()
+		{
+			IsBursting = false;
+			CanShoot = true;
+			HasFiredBurst = false;
+		});
+
+		CanShoot = false;
+		if (!CanShoot)
+		{
+			GetWorld()->GetTimerManager().SetTimer(TimerHandle, TimerDelegate, TimeUntillNextShot, false);
+		}
+	}
+}
+
+void AWeapon::PlayFireSFX()
+{
+	if (FireSound != NULL)
+	{
+		UGameplayStatics::PlaySoundAtLocation(this, FireSound, GetActorLocation());
+	}
+}
+
+void AWeapon::PlayFireAnimation()
+{
+	if (FireAnimation != NULL)
+	{
+		UAnimInstance* AnimInstance = Cast<AMyProjectCharacter>(GetOwner())->Mesh1P->GetAnimInstance();
+		if (AnimInstance != NULL)
+		{
+			AnimInstance->Montage_Play(FireAnimation, 1.f);
+		}
+	}
+}
+
 
 void AWeapon::StartReloadTimer()
 {
@@ -185,6 +197,15 @@ void AWeapon::StartReloadTimer()
 		FTimerHandle ReloadHandle;
 		GetWorldTimerManager().SetTimer(ReloadHandle, this, &AWeapon::Reload, ReloadTime, false);
 	}
+}
+
+void AWeapon::Reload()
+{
+	CurrentAmmo = MaxAmmo;
+	HasFiredBurst = false;
+	CanShoot = true;
+	IsReloading = false;
+	IsBursting = false;
 }
 
 void AWeapon::StartBurstTimer()

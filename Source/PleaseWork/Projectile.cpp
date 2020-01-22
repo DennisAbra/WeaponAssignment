@@ -35,31 +35,31 @@ void AProjectile::BeginPlay()
 void AProjectile::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
-	
-
 }
-
-
 
 void AProjectile::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit)
 {
 	
 		if ((OtherActor != nullptr) && (OtherActor != this) && (OtherComp != nullptr))
 		{
-			if (Cast<IDamageableInterface>(OtherActor)) {
-				Cast<IDamageableInterface>(OtherActor)->Execute_ApplyDamage(OtherActor, 3);
-				Destroy();
-			}
-
-			FRotator rotator = Hit.Normal.Rotation();
-			rotator.Pitch -= 90;
-			GetWorld()->SpawnActor<ABulletHoleDecal>(BulletHole, Hit.ImpactPoint, rotator);
-
-			DrawDebugPoint(GetWorld(), Hit.ImpactPoint, 2, FColor::Green, true, 10.0f);
-			DrawDebugDirectionalArrow(GetWorld(), Hit.ImpactPoint, Hit.ImpactPoint + (Hit.ImpactNormal * 100), 2.0f, FColor::Green, true, 10);
-
+			HandleHitEvents(Hit, OtherActor);
 		}
+}
+
+void AProjectile::HandleHitEvents(FHitResult Hit, AActor* OtherActor)
+{
+	if (Cast<IDamageableInterface>(OtherActor)) {
+		Cast<IDamageableInterface>(OtherActor)->Execute_ApplyDamage(OtherActor, 3);
+		Destroy();
+	}
+
+	FRotator rotator = Hit.Normal.Rotation();
+	rotator.Pitch -= 90;
+	GetWorld()->SpawnActor<ABulletHoleDecal>(BulletHole, Hit.ImpactPoint, rotator);
+
+	DrawDebugPoint(GetWorld(), Hit.ImpactPoint, 2, FColor::Green, true, 10.0f);
+	DrawDebugDirectionalArrow(GetWorld(), Hit.ImpactPoint, Hit.ImpactPoint + (Hit.ImpactNormal * 100), 2.0f, FColor::Green, true, 10);
+	Destroy();
 }
 
 

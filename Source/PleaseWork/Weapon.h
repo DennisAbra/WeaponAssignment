@@ -48,9 +48,6 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Shooting|Burst - VALUES ONLY USED WHEN FIRETYPE IS SET TO BURST")
 		int BulletsPerBurst = 3;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Shooting|Burst - VALUES ONLY USED WHEN FIRETYPE IS SET TO BURST")
-		int InitialBulletSpread = 3;
-
 	UPROPERTY(BlueprintReadOnly, Category = "Shooting")
 		bool CanShoot = true;
 
@@ -106,14 +103,26 @@ public:
 	virtual void Tick(float DeltaTime) override;
 	AWeapon();
 
+	virtual void OnConstruction(const FTransform& Transform) override;
+
 	UFUNCTION(BlueprintCallable)
 		void Fire();
 
-	virtual void OnConstruction(const FTransform& Transform) override;
+	void HandleBurstExitConditions();
+
+	void HandleShootingComponents();
+
+	void HandleCooldownBetweenShots();
+
+	void PlayFireSFX();
+	void PlayFireAnimation();
 
 	UFUNCTION(BlueprintCallable)
 		void Reload();
 
+	UFUNCTION(BlueprintCallable)
 	void StartReloadTimer();
+
+	UFUNCTION(BlueprintCallable)
 	void StartBurstTimer();
 };
