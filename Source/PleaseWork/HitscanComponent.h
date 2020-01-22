@@ -21,6 +21,9 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		float ShootingDistance = 1000.0f;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		float BulletSpreadDegrees = 0.0f;
+
 protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
@@ -31,4 +34,6 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 		FHitResult Fire();
+
+	FVector GetBulletSpread();
 };

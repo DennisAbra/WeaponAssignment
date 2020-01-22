@@ -91,7 +91,7 @@ void AWeapon::Fire()
 {
 	HandleBurstExitConditions();
 
-	if (CurrentAmmo >= 0 && !IsReloading || InfiniteAmmo)
+	if (CurrentAmmo > 0 && !IsReloading || InfiniteAmmo)
 	{
 		HandleShootingComponents();
 		HandleCooldownBetweenShots();

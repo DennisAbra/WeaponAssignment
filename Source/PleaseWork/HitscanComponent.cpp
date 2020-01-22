@@ -4,6 +4,7 @@
 #include "HitscanComponent.h"
 #include "Weapon.h"
 #include "DamageableInterface.h"
+#include "Kismet/KismetMathLibrary.h"
 
 // Sets default values for this component's properties
 UHitscanComponent::UHitscanComponent()
@@ -43,7 +44,7 @@ FHitResult UHitscanComponent::Fire()
 	Rotation = Owner->Mesh->GetSocketRotation("Muzzle");
 
 	FVector Start = Location;
-	FVector End = Start + (Rotation.Vector() * ShootingDistance);
+	FVector End = Start + (Rotation.Vector() + (GetBulletSpread() * ShootingDistance));
 
 	DrawDebugLine(GetWorld(), Start, End, FColor::Red, false, 2.0);
 	if (GetWorld()->LineTraceSingleByChannel(Hit, Start, End, ECC_Visibility))
@@ -56,5 +57,10 @@ FHitResult UHitscanComponent::Fire()
 	}
 
 	return Hit;
+}
+
+FVector UHitscanComponent::GetBulletSpread()
+{
+	return UKismetMathLibrary::RandomUnitVectorInConeInDegrees(GetOwner()->GetActorRightVector(), BulletSpreadDegrees);
 }
 
