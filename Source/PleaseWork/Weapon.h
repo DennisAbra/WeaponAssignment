@@ -7,6 +7,7 @@
 #include "Components/SkeletalMeshComponent.h"
 #include "DrawDebugHelpers.h"
 #include "BulletHoleDecal.h"
+#include "RecoilComponent.h"
 #include "Weapon.generated.h"
 
 UENUM(BlueprintType)
@@ -80,7 +81,7 @@ public:
 	bool HasFiredBurst = false;
 	int BurstShotFired = 1;
 	bool IsBursting = false;
-
+	 URecoilComponent* RecoilComp;
 
 
 protected:
@@ -89,10 +90,10 @@ protected:
 	FTimerHandle TimerHandle;
 	FTimerHandle BurstHandle;
 	FTimerDelegate TimerDelegate;
+
 	class UHitscanComponent* HitScanComp;
 	class UProjectileComponent* ProjectileComp;
-	class URecoilComponent* RecoilComp;
-	class UBurstComponent* BurstComp;
+
 
 
 public:

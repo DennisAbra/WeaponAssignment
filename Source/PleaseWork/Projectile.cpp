@@ -62,7 +62,7 @@ void AProjectile::ExplodeBullet(const FHitResult& Hit)
 	FVector SweepEnd = Hit.Location;
 
 	FCollisionShape ExplosionCol = FCollisionShape::MakeSphere(ExplosionRadius);
-	DrawDebugSphere(GetWorld(), Hit.Location, ExplosionCol.GetSphereRadius(), 50, FColor::Purple, true);
+	DrawDebugSphere(GetWorld(), Hit.Location, ExplosionCol.GetSphereRadius(), 50, FColor::Purple, false, 2);
 
 	if (GetWorld()->SweepMultiByChannel(OutHits, SweepStart, SweepEnd, FQuat::Identity, ECC_WorldStatic, ExplosionCol))
 	{
@@ -89,7 +89,7 @@ void AProjectile::HandleHitEvents(const FHitResult& Hit, AActor* OtherActor)
 	GetWorld()->SpawnActor<ABulletHoleDecal>(BulletHole, Hit.ImpactPoint, rotator);
 
 	DrawDebugPoint(GetWorld(), Hit.ImpactPoint, 2, FColor::Green, true, 10.0f);
-	DrawDebugDirectionalArrow(GetWorld(), Hit.ImpactPoint, Hit.ImpactPoint + (Hit.ImpactNormal * 100), 2.0f, FColor::Green, true, 10);
+	DrawDebugDirectionalArrow(GetWorld(), Hit.ImpactPoint, Hit.ImpactPoint + (Hit.ImpactNormal * 100), 2.0f, FColor::Green, false, 2	);
 	Destroy();
 }
 

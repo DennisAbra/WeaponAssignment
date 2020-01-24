@@ -212,6 +212,10 @@ void AMyProjectCharacter::DropCurrentWeapon()
 {
 	if (CurrentWeapon())
 	{
+		if (CurrentWeapon()->RecoilComp)
+		{
+			CurrentWeapon()->RecoilComp->StopRecoil();
+		}
 		//Make sure the weapon gets effected by gravity
 		CurrentWeapon()->Owner = nullptr;
 		CurrentWeapon()->Mesh->SetSimulatePhysics(true);
@@ -220,6 +224,8 @@ void AMyProjectCharacter::DropCurrentWeapon()
 		CurrentWeapon()->DetachRootComponentFromParent();
 		CurrentWeapon()->Mesh->AddImpulse(CurrentWeapon()->Mesh->GetRightVector() * ThrowMultiplier, NAME_None, true);
 		armory[armoryIndex] = nullptr;
+
+
 		for (int32 i = armoryIndex; i < armory.Num() - 1; i++)
 		{
 			if (armory[i + 1] != nullptr) {

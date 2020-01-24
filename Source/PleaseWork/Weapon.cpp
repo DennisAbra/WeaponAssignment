@@ -10,8 +10,6 @@
 #include "Animation/AnimInstance.h"
 #include "Kismet/GameplayStatics.h"
 #include "MyProjectCharacter.h"
-#include "RecoilComponent.h"
-#include "BurstComponent.h"
 
 // Sets default values
 AWeapon::AWeapon()
@@ -75,8 +73,6 @@ void AWeapon::BeginPlay()
 	ProjectileComp = FindComponentByClass<UProjectileComponent>();
 
 	RecoilComp = FindComponentByClass<URecoilComponent>();
-
-	BurstComp = FindComponentByClass<UBurstComponent>();
 
 	Super::BeginPlay();
 }

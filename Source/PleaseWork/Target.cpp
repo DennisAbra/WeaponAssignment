@@ -33,6 +33,7 @@ void ATarget::Hide()
 	currentHealth = 0;
 	SetActorLocation(hideLocation);
 	isShown = false;
+	SetActorEnableCollision(false);
 }
 
 void ATarget::Show()
@@ -40,6 +41,7 @@ void ATarget::Show()
 	currentHealth = maxHealth;
 	SetActorLocation(showLocation);
 	isShown = true;
+	SetActorEnableCollision(true);
 }
 
 float ATarget::ApplyDamage_Implementation(float InDamage)
