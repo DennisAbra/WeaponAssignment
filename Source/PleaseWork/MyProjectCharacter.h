@@ -24,9 +24,6 @@ class PLEASEWORK_API AMyProjectCharacter : public ACharacter
 	UPROPERTY(VisibleAnywhere, Category = "Armory")
 		TArray<class AWeapon*> armory;
 
-	UPROPERTY(VisibleAnywhere, Category = "Armory")
-		int armoryIndex;
-
 	bool ArmoryFull();
 	void ScrollArmory(float direction);
 	void ChangeWeapon(float direction, bool droppedWeapon = false);
@@ -38,9 +35,11 @@ public:
 	UFUNCTION()
 		void OnBeginOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult &SweepResult);
 
-
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Armory")
 		int armorySize = 3;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Armory")
+		int armoryIndex;
 
 public:
 	AMyProjectCharacter();
