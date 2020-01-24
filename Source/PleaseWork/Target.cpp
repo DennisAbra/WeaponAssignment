@@ -30,24 +30,27 @@ void ATarget::Tick(float DeltaTime)
 
 void ATarget::Hide()
 {
+	SetActorEnableCollision(false);
 	currentHealth = 0;
 	SetActorLocation(hideLocation);
 	isShown = false;
-	SetActorEnableCollision(false);
 }
 
 void ATarget::Show()
 {
+	SetActorEnableCollision(true);
 	currentHealth = maxHealth;
 	SetActorLocation(showLocation);
 	isShown = true;
-	SetActorEnableCollision(true);
 }
 
 float ATarget::ApplyDamage_Implementation(float InDamage)
 {
-	currentHealth -= InDamage;
-	targetManager->DisplayDamage(GetActorLocation(), FString::FromInt(FMath::RoundToInt(InDamage)));
+	if (currentHealth > 0)
+	{
+		currentHealth -= InDamage;
+		targetManager->DisplayDamage(GetActorLocation(), FString::FromInt(FMath::RoundToInt(InDamage)));
+	}
 	if (currentHealth <= 0.0f) {
 		Hide();
 	}

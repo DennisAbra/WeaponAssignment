@@ -31,8 +31,8 @@ void URecoilComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActo
 {
 	if (IsRecoiling)
 	{
-		FinalRecoilPitch = Recoil * FMath::FRandRange(MinPitchRange, MaxPitchRange);
-		FinalRecoilYaw = Recoil * FMath::FRandRange(MinYawRange, MaxYawRange);
+		FinalRecoilPitch = RecoilMultiplier * FMath::FRandRange(MinPitchRange, MaxPitchRange);
+		FinalRecoilYaw = RecoilMultiplier * FMath::FRandRange(MinYawRange, MaxYawRange);
 
 		Owner->Owner->AddControllerPitchInput(FinalRecoilPitch);
 		Owner->Owner->AddControllerYawInput(FinalRecoilYaw);

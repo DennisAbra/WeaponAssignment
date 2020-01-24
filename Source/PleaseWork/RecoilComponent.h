@@ -20,21 +20,26 @@ public:
 		float MinPitchRange = -1.0f;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Recoil")
-		float MaxPitchRange = -1.0f;
+		float MaxPitchRange = 1.0f;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Recoil")
 		float MinYawRange = -1.0f;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Recoil")
-		float MaxYawRange = -1.0f;
-
+		float MaxYawRange = 1.0f;
+	/**
+	 * Works as a multiplier
+	 * Recommended value is between 0.1 - 0.5
+	 */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Recoil")
-		float Recoil = 1;
-
+		float RecoilMultiplier = 1;
+	/**
+	 * How long should the weapon recoil?
+	 */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Recoil")
 		float RecoilTime = 0.1f;
 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Recoil")
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Recoil")
 		bool IsRecoiling = false;
 
 	float FinalRecoilPitch;

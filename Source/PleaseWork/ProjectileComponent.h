@@ -18,7 +18,10 @@ public:
 	UProjectileComponent();
 
 	class AWeapon* Owner;
-
+	/**
+	 * Sets the projectile to spawn when we shoot
+	 * Should be an existing blueprint of the Projectile class
+	 */
 	UPROPERTY(EditAnywhere, BluePrintReadWrite, Category = "Projectile")
 		TSubclassOf<AProjectile> ProjectileToSpawn;
 

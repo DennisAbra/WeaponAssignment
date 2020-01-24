@@ -47,40 +47,41 @@ void AProjectile::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimi
 		if ((OtherActor != nullptr) && (OtherActor != this) && (OtherComp != nullptr))
 		{
 			HandleHitEvents(Hit, OtherActor);
-			if (IsExplosiveBullet)
-			{
-				ExplodeBullet(Hit);
-			}
+			ExplodeBullet(Hit);
 		}
 }
 
 void AProjectile::ExplodeBullet(const FHitResult& Hit)
 {
-	VFX->SetActive(true);
-	TArray<FHitResult> OutHits;
-	FVector SweepStart = Hit.Location;
-	FVector SweepEnd = Hit.Location;
-
-	FCollisionShape ExplosionCol = FCollisionShape::MakeSphere(ExplosionRadius);
-	DrawDebugSphere(GetWorld(), Hit.Location, ExplosionCol.GetSphereRadius(), 50, FColor::Purple, false, 2);
-
-	if (GetWorld()->SweepMultiByChannel(OutHits, SweepStart, SweepEnd, FQuat::Identity, ECC_WorldStatic, ExplosionCol))
+	if (IsExplosiveBullet)
 	{
-		for (auto& Hit : OutHits)
+		VFX->SetActive(true);
+		TArray<FHitResult> OutHits;
+		FVector SweepStart = Hit.Location;
+		FVector SweepEnd = Hit.Location;
+
+		FCollisionShape ExplosionCol = FCollisionShape::MakeSphere(ExplosionRadius);
+		DrawDebugSphere(GetWorld(), Hit.Location, ExplosionCol.GetSphereRadius(), 50, FColor::Purple, false, 2);
+
+
+		if (GetWorld()->SweepMultiByChannel(OutHits, SweepStart, SweepEnd, FQuat::Identity, ECC_WorldStatic, ExplosionCol))
 		{
-			if (Cast<IDamageableInterface>(Hit.GetActor()))
+			for (auto& Hit : OutHits)
 			{
-				Cast<IDamageableInterface>(Hit.GetActor())->Execute_ApplyDamage(Hit.GetActor(), DamageOnExplode);
+				if (Cast<IDamageableInterface>(Hit.GetActor()))
+				{
+					Cast<IDamageableInterface>(Hit.GetActor())->ApplyDamage_Implementation(DamageOnExplode);
+						//Execute_ApplyDamage(Hit.GetActor(), DamageOnExplode);
+				}
 			}
 		}
 	}
-
 }
 
 void AProjectile::HandleHitEvents(const FHitResult& Hit, AActor* OtherActor)
 {
 	if (Cast<IDamageableInterface>(OtherActor)) {
-		Cast<IDamageableInterface>(OtherActor)->Execute_ApplyDamage(OtherActor, DamageOnHit);
+		Cast<IDamageableInterface>(OtherActor)->ApplyDamage_Implementation(DamageOnHit);
 		Destroy();
 	}
 

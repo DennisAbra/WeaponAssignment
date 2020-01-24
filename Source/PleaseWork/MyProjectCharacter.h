@@ -59,7 +59,9 @@ public:
 	/** Base look up/down rate, in deg/sec. Other scaling may affect final rate. */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera)
 		float BaseLookUpRate;
-
+	/**
+	 * Sets the force to add when we drop a weapon
+	 */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Shooting|Disarm")
 		float ThrowMultiplier = 800;
 
