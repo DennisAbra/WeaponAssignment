@@ -25,6 +25,7 @@ class PLEASEWORK_API AMyProjectCharacter : public ACharacter
 		TArray<class AWeapon*> armory;
 
 	bool ArmoryFull();
+	void UpdateArmoryCount();
 	void ScrollArmory(float direction);
 	void ChangeWeapon(float direction, bool droppedWeapon = false);
 	void AddWeapon(AWeapon* weapon);
@@ -40,6 +41,9 @@ public:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Armory")
 		int armoryIndex;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Armory")
+		int armoryAmount;
 
 public:
 	AMyProjectCharacter();

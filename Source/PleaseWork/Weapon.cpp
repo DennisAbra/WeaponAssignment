@@ -35,7 +35,7 @@ void AWeapon::OnConstruction(const FTransform& Transform)
 	Mesh->SetOnlyOwnerSee(false);
 	Mesh->bCastDynamicShadow = false;
 	Mesh->CastShadow = false;
-	Mesh->SetCollisionProfileName("Weapon");
+	Mesh->SetCollisionProfileName("WeaponMesh");
 	Mesh->SetSimulatePhysics(true);
 	Mesh->SetNotifyRigidBodyCollision(true);
 

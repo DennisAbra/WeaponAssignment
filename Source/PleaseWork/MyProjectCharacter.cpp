@@ -50,11 +50,19 @@ bool AMyProjectCharacter::ArmoryFull()
 	for (int32 i = 0; i < armory.Num(); i++)
 	{
 		if (armory[i] == nullptr)
-		{
 			return false;
-		}
 	}
 	return true;
+}
+
+void AMyProjectCharacter::UpdateArmoryCount()
+{
+	armoryAmount = 0;
+	for (int32 i = 0; i < armory.Num(); i++)
+	{
+		if (armory[i] != nullptr)
+			armoryAmount += 1;
+	}
 }
 
 void AMyProjectCharacter::ScrollArmory(float direction)
@@ -67,12 +75,12 @@ void AMyProjectCharacter::ChangeWeapon(float direction, bool droppedWeapon)
 	if (direction != 0)
 	{
 		int requiredAmount = droppedWeapon ? 1 : 2;
-		int armoryAmount = 0;
+		int currentAmount = 0;
 		for (int32 i = 0; i < armory.Num(); i++) {
 			if (armory[i] != nullptr)
-				armoryAmount++;
+				currentAmount++;
 		}
-		if (armoryAmount < requiredAmount)
+		if (currentAmount < requiredAmount)
 			return;
 		if (CurrentWeapon() != nullptr)
 			CurrentWeapon()->Mesh->SetVisibility(false);
@@ -101,6 +109,7 @@ void AMyProjectCharacter::AddWeapon(AWeapon* weapon)
 			armory[i]->BoxCollider->SetActive(false);
 			if (armoryIndex != i)
 				armory[i]->Mesh->SetVisibility(false);
+			UpdateArmoryCount();
 			break;
 		}
 	}
@@ -225,7 +234,6 @@ void AMyProjectCharacter::DropCurrentWeapon()
 		CurrentWeapon()->Mesh->AddImpulse(CurrentWeapon()->Mesh->GetRightVector() * ThrowMultiplier, NAME_None, true);
 		armory[armoryIndex] = nullptr;
 
-
 		for (int32 i = armoryIndex; i < armory.Num() - 1; i++)
 		{
 			if (armory[i + 1] != nullptr) {
@@ -238,6 +246,7 @@ void AMyProjectCharacter::DropCurrentWeapon()
 		else
 			ChangeWeapon(-1, true);
 	}
+	UpdateArmoryCount();
 }
 
 void AMyProjectCharacter::MoveForward(float Value)
