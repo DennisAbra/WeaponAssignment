@@ -36,9 +36,6 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
 		class UBoxComponent* BoxCollider;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Shooting|Damage")
-		float DamagePerShot = 5.0f;
-
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Shooting|Fire Rate")
 		float TimeUntillNextShot = 0.1f;
 

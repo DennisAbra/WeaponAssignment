@@ -26,6 +26,21 @@ public:
 		float ForceToAdd = 500.0f;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Projectile")
+		float DamageOnHit = 10.0f;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Projectile|Explosive")
+		float DamageOnExplode = 15.0f;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Projectile|Explosive")
+		bool IsExplosiveBullet = false;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Projectile|Explosive")
+		float ExplosionRadius = 250.0f;
+
+	UPROPERTY(VisibleAnywhere, Category = "Projectile")
+		class UParticleSystemComponent* VFX;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Projectile")
 		TSubclassOf<ABulletHoleDecal> BulletHole;
 
 protected:
@@ -40,6 +55,9 @@ public:
 	UFUNCTION()
 		void OnHit(UPrimitiveComponent* HitComp, AActor* OtherACtor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit);
 
+	UFUNCTION()
+		void ExplodeBullet(const FHitResult& Hit);
+
 	UFUNCTION(BlueprintCallable)
-		void HandleHitEvents(FHitResult Hit, AActor* OtherActor);
+		void HandleHitEvents(const FHitResult& Hit, AActor* OtherActor);
 };

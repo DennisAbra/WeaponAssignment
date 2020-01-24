@@ -52,7 +52,7 @@ FHitResult UHitscanComponent::Fire()
 		if (Cast<IDamageableInterface>(Hit.GetActor()))
 		{
 			UE_LOG(LogTemp, Display, TEXT("TASKADA"));
-			Cast<IDamageableInterface>(Hit.GetActor())->Execute_ApplyDamage(Hit.GetActor(), Owner->DamagePerShot);
+			Cast<IDamageableInterface>(Hit.GetActor())->Execute_ApplyDamage(Hit.GetActor(), DamagePerShot);
 		}
 	}
 

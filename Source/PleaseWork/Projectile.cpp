@@ -6,6 +6,7 @@
 #include "Components/StaticMeshComponent.h"
 #include "DamageableInterface.h"
 #include "DrawDebugHelpers.h"
+#include "Particles/ParticleSystemComponent.h"
 
 AProjectile::AProjectile()
 {
@@ -18,6 +19,9 @@ AProjectile::AProjectile()
 
 	Mesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("StaticMesh"));
 	Mesh->SetupAttachment(CollisionComp);
+
+	VFX = CreateDefaultSubobject<UParticleSystemComponent>(TEXT("Explosion Effect"));
+	VFX->SetupAttachment(CollisionComp);
 }
 
 // Called when the game starts or when spawned
@@ -43,13 +47,40 @@ void AProjectile::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimi
 		if ((OtherActor != nullptr) && (OtherActor != this) && (OtherComp != nullptr))
 		{
 			HandleHitEvents(Hit, OtherActor);
+			if (IsExplosiveBullet)
+			{
+				ExplodeBullet(Hit);
+			}
 		}
 }
 
-void AProjectile::HandleHitEvents(FHitResult Hit, AActor* OtherActor)
+void AProjectile::ExplodeBullet(const FHitResult& Hit)
+{
+	VFX->SetActive(true);
+	TArray<FHitResult> OutHits;
+	FVector SweepStart = Hit.Location;
+	FVector SweepEnd = Hit.Location;
+
+	FCollisionShape ExplosionCol = FCollisionShape::MakeSphere(ExplosionRadius);
+	DrawDebugSphere(GetWorld(), Hit.Location, ExplosionCol.GetSphereRadius(), 50, FColor::Purple, true);
+
+	if (GetWorld()->SweepMultiByChannel(OutHits, SweepStart, SweepEnd, FQuat::Identity, ECC_WorldStatic, ExplosionCol))
+	{
+		for (auto& Hit : OutHits)
+		{
+			if (Cast<IDamageableInterface>(Hit.GetActor()))
+			{
+				Cast<IDamageableInterface>(Hit.GetActor())->Execute_ApplyDamage(Hit.GetActor(), DamageOnExplode);
+			}
+		}
+	}
+
+}
+
+void AProjectile::HandleHitEvents(const FHitResult& Hit, AActor* OtherActor)
 {
 	if (Cast<IDamageableInterface>(OtherActor)) {
-		Cast<IDamageableInterface>(OtherActor)->Execute_ApplyDamage(OtherActor, 3);
+		Cast<IDamageableInterface>(OtherActor)->Execute_ApplyDamage(OtherActor, DamageOnHit);
 		Destroy();
 	}
 

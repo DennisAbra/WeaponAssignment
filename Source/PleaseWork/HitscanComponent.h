@@ -22,6 +22,9 @@ public:
 		float ShootingDistance = 1000.0f;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		float DamagePerShot = 10.0f;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		float BulletSpreadDegrees = 0.0f;
 
 protected:
