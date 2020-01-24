@@ -75,7 +75,8 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
 		class UAnimMontage* FireAnimation;
 
-	bool IsReloading = false;
+	UPROPERTY(BlueprintReadOnly)
+		bool IsReloading = false;
 	class AMyProjectCharacter* Owner;
 
 	bool HasFiredBurst = false;
