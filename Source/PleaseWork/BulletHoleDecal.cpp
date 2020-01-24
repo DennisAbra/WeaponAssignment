@@ -7,6 +7,6 @@
 void ABulletHoleDecal::BeginPlay()
 {
 	PrimaryActorTick.bCanEverTick = false;
-	SetLifeSpan(lifeTime);
+	SetLifeSpan(LifeTime);
 	Super::BeginPlay();
 }

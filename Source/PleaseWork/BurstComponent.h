@@ -41,7 +41,7 @@ public:
 	int ShotsFired = 0;
 	float FinalBurstPitch;
 	float FinalBurstYaw;
-	bool IsBursting = false;
+	bool bIsBursting = false;
 	FTimerHandle TimerHandle;
 protected:
 	virtual void BeginPlay() override;

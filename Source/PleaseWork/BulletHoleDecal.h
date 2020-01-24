@@ -17,7 +17,7 @@ class PLEASEWORK_API ABulletHoleDecal : public ADecalActor
 public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Config")
-		float lifeTime = 10;
+		float LifeTime = 10;
 
 	virtual void BeginPlay() override;
 };

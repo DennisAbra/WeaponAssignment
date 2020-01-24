@@ -9,15 +9,15 @@ void ADamageDisplay::Display(FVector location, FString text)
 {
 	SetActorLocation(location + FVector::UpVector * 185);
 	SetActorHiddenInGame(false);
-	displayed = true;
-	currentLifeTime = lifeTime;
-	textField->SetText("-" + text);
+	bDisplayed = true;
+	CurrentLifeTime = LifeTime;
+	TextField->SetText("-" + text);
 }
 
 void ADamageDisplay::Vanish()
 {
 	SetActorHiddenInGame(true);
-	displayed = false;
+	bDisplayed = false;
 }
 
 // Sets default values
@@ -25,17 +25,17 @@ ADamageDisplay::ADamageDisplay()
 {
 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
-	textField = CreateDefaultSubobject<UTextRenderComponent>(TEXT("Text"));
+	TextField = CreateDefaultSubobject<UTextRenderComponent>(TEXT("Text"));
 
 }
 
 // Called when the game starts or when spawned
 void ADamageDisplay::BeginPlay()
 {
-	playerActor = GetWorld()->GetFirstPlayerController()->GetPawn();
+	PlayerActor = GetWorld()->GetFirstPlayerController()->GetPawn();
 
-	textField->TextRenderColor = FColor::White;
-	textField->SetHorizontalAlignment(EHorizTextAligment::EHTA_Center);
+	TextField->TextRenderColor = FColor::White;
+	TextField->SetHorizontalAlignment(EHorizTextAligment::EHTA_Center);
 	SetActorScale3D(FVector::OneVector * 2);
 
 	Super::BeginPlay();
@@ -45,18 +45,18 @@ void ADamageDisplay::BeginPlay()
 // Called every frame
 void ADamageDisplay::Tick(float DeltaTime)
 {
-	if (!displayed)
+	if (!bDisplayed)
 		return;
 	Super::Tick(DeltaTime);
 
-	SetActorLocation(GetActorLocation() + FVector::UpVector * soarSpeed * DeltaTime);
+	SetActorLocation(GetActorLocation() + FVector::UpVector * SoarSpeed * DeltaTime);
 
-	currentLifeTime -= DeltaTime;
-	if (currentLifeTime <= 0)
+	CurrentLifeTime -= DeltaTime;
+	if (CurrentLifeTime <= 0)
 		Vanish();
 
-	if (playerActor != nullptr)
-		SetActorRotation(UKismetMathLibrary::FindLookAtRotation(GetActorLocation(), playerActor->GetActorLocation()));
+	if (PlayerActor != nullptr)
+		SetActorRotation(UKismetMathLibrary::FindLookAtRotation(GetActorLocation(), PlayerActor->GetActorLocation()));
 
 }
 

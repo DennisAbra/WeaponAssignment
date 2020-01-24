@@ -110,7 +110,7 @@ public:
 
 	bool HasFiredBurst = false;
 	int BurstShotFired = 1;
-	bool IsBursting = false;
+	bool bIsBursting = false;
 	 URecoilComponent* RecoilComp;
 
 

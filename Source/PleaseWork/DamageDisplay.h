@@ -14,23 +14,23 @@ class PLEASEWORK_API ADamageDisplay : public AActor
 
 	void Vanish();
 
-	float currentLifeTime;
+	float CurrentLifeTime;
 
-	class UTextRenderComponent* textField;
+	class UTextRenderComponent* TextField;
 
-	class APawn* playerActor = nullptr;
+	class APawn* PlayerActor = nullptr;
 
 public:
 	// Sets default values for this actor's properties
 	ADamageDisplay();
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Config")
-		float lifeTime = 1.5f;
+		float LifeTime = 1.5f;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Config")
-		float soarSpeed = 2;
+		float SoarSpeed = 2;
 
-	bool displayed;
+	bool bDisplayed;
 
 	void Display(FVector location, FString text);
 

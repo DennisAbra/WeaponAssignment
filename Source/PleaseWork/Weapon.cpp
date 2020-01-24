@@ -102,7 +102,7 @@ void AWeapon::Fire()
 void AWeapon::HandleBurstExitConditions()
 {
 	//HandleBurstExitConditions
-	if (FireType == EFireTypeEnum::FTBurst && IsBursting)
+	if (FireType == EFireTypeEnum::FTBurst && bIsBursting)
 	{
 		BurstShotFired++;
 	}
@@ -150,7 +150,7 @@ void AWeapon::HandleCooldownBetweenShots()
 	{
 		TimerDelegate.BindLambda([this]()
 		{
-			IsBursting = false;
+			bIsBursting = false;
 			CanShoot = true;
 			HasFiredBurst = false;
 		});
@@ -200,15 +200,15 @@ void AWeapon::Reload()
 	HasFiredBurst = false;
 	CanShoot = true;
 	IsReloading = false;
-	IsBursting = false;
+	bIsBursting = false;
 }
 
 void AWeapon::StartBurstTimer()
 {
-	if (!IsBursting)
+	if (!bIsBursting)
 	{
 		Fire();
-		IsBursting = true;
+		bIsBursting = true;
 		GetWorldTimerManager().SetTimer(BurstHandle, this, &AWeapon::Fire, TimeUntilNextBurstShot, true);
 	}
 }

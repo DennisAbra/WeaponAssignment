@@ -17,7 +17,7 @@ void ATargetManager::DisplayDamage(FVector location, FString text)
 	ADamageDisplay* damageDisplay = nullptr;
 	for (int32 i = 0; i < damageDisplays.Num(); i++)
 	{
-		if (!damageDisplays[i]->displayed) {
+		if (!damageDisplays[i]->bDisplayed) {
 			damageDisplay = damageDisplays[i];
 			break;
 		}

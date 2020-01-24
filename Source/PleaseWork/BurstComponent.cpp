@@ -32,7 +32,7 @@ void UBurstComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActor
 {
 	//Probably not necessary, can just add the recoilcomponent instead
 	//If u want to use it, turn on tick
-	if (IsBursting)
+	if (bIsBursting)
 	{
 		FinalBurstPitch = Burst * FMath::FRandRange(MinPitchRange, MaxPitchRange);
 		FinalBurstYaw = Burst * FMath::FRandRange(MinYawRange, MaxYawRange);
@@ -50,14 +50,14 @@ void UBurstComponent::Fire()
 
 void UBurstComponent::StopBurst()
 {
-	IsBursting = false;
+	bIsBursting = false;
 	GetWorld()->GetTimerManager().ClearTimer(TimerHandle);
 }
 
 void UBurstComponent::StartBurst()
 {
 	GetWorld()->GetTimerManager().SetTimer(TimerHandle, this, &UBurstComponent::Fire, TimeUntillNextBurstShot, true);
-	IsBursting = true;
+	bIsBursting = true;
 }
 
 
