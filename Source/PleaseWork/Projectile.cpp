@@ -71,7 +71,6 @@ void AProjectile::ExplodeBullet(const FHitResult& Hit)
 				if (Cast<IDamageableInterface>(Hit.GetActor()))
 				{
 					Cast<IDamageableInterface>(Hit.GetActor())->ApplyDamage_Implementation(DamageOnExplode);
-						//Execute_ApplyDamage(Hit.GetActor(), DamageOnExplode);
 				}
 			}
 		}

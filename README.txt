@@ -26,4 +26,10 @@ To make a grenade launcher, choose your own settings on the weapon base. Make a 
 Refrence:
 
 Starting of we didn't really agree on a refrence, but as we came longer into the project we realized that we're building a system very similar to the older Call of Duty's. 
-They mostly have Hitscan weapons, but also have projectile weapons like grenade launcher or rocket launchers.
+They mostly have Hitscan weapons, but also have projectile weapons like grenade launcher or rocket launchers. We think we achieved our goal in creating a system that would allow us to create weapons similar to the ones in Call of Duty. 
+
+Alkimini scripts: ScopeComponent.h, ScopeComponent.cpp
+
+Dennis scripts: I've mostly worked on HitscanComponent, MyProjectCharacter, Projectile, ProjectileComponent, RecoilComponent and Weapon.
+
+Antonios script:
