@@ -37,6 +37,6 @@ Antonios script: I have worked on BulletHoleDecal, DamageDisplay, Target, Target
 Controls:
 
 Pick up weapon - Walk to it
-Scroll weapon - Scrool Mousewheel
+Scroll weapon - Scroll Mousewheel
 Use Scope - Right Mouse Button
 Throw weapon - Q
