@@ -28,8 +28,15 @@ Refrence:
 Starting of we didn't really agree on a refrence, but as we came longer into the project we realized that we're building a system very similar to the older Call of Duty's. 
 They mostly have Hitscan weapons, but also have projectile weapons like grenade launcher or rocket launchers. We think we achieved our goal in creating a system that would allow us to create weapons similar to the ones in Call of Duty. 
 
-Alkimini scripts: ScopeComponent.h, ScopeComponent.cpp, DamageableInterface.h, DamageableInterface.cpp
+Alkimini scripts: ScopeComponent.h, ScopeComponent.cpp, DamageableInterface.h, DamageableInterface.cpp, (I have also done my own weapon system from which i borrowed the scope componenet from).
 
 Dennis scripts: I've mostly worked on HitscanComponent, MyProjectCharacter, Projectile, ProjectileComponent, DamageableInterface, RecoilComponent and Weapon.
 
 Antonios script: I have worked on BulletHoleDecal, DamageDisplay, Target, TargetManager, DamageableInterface, MyprojectCharacter (Armorysystem).
+
+Controls:
+
+Pick up weapon - Walk to it
+Scroll weapon - Scrool Mousewheel
+Use Scope - Press Mousewheel
+Throw weapon - Q
