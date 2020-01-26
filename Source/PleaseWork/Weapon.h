@@ -8,6 +8,7 @@
 #include "DrawDebugHelpers.h"
 #include "BulletHoleDecal.h"
 #include "RecoilComponent.h"
+#include "ScopeComponent.h"
 #include "Weapon.generated.h"
 
 UENUM(BlueprintType)
@@ -112,6 +113,7 @@ public:
 	int BurstShotFired = 1;
 	bool bIsBursting = false;
 	 URecoilComponent* RecoilComp;
+	 class UScopeComponent* ScopeComp;
 
 
 protected:

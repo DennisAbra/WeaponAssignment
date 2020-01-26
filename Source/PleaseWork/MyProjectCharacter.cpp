@@ -115,6 +115,29 @@ void AMyProjectCharacter::AddWeapon(AWeapon* weapon)
 	}
 }
 
+void AMyProjectCharacter::AimDownSight()
+{
+	if (CurrentWeapon() != nullptr)
+	{
+		if (CurrentWeapon()->ScopeComp)
+		{
+			CurrentWeapon()->ScopeComp->ZoomIn(GetController());
+		}
+	}
+
+}
+
+void AMyProjectCharacter::StopAimDownSight()
+{
+	if (CurrentWeapon() != nullptr)
+	{
+		if (CurrentWeapon()->ScopeComp)
+		{
+			CurrentWeapon()->ScopeComp->ZoomOut(GetController());
+		}
+	}
+}
+
 class AWeapon* AMyProjectCharacter::CurrentWeapon()
 {
 	if (armory.Num() > 0)
@@ -171,6 +194,9 @@ void AMyProjectCharacter::SetupPlayerInputComponent(class UInputComponent* Playe
 	PlayerInputComponent->BindAxis("Scroll", this, &AMyProjectCharacter::ScrollArmory);
 	PlayerInputComponent->BindAction("Reload", IE_Pressed, this, &AMyProjectCharacter::TryToReload);
 
+	PlayerInputComponent->BindAction("Aim", IE_Pressed, this, &AMyProjectCharacter::AimDownSight);
+	PlayerInputComponent->BindAction("Aim", IE_Released, this, &AMyProjectCharacter::StopAimDownSight);
+
 	// Bind movement events
 	PlayerInputComponent->BindAxis("MoveForward", this, &AMyProjectCharacter::MoveForward);
 	PlayerInputComponent->BindAxis("MoveRight", this, &AMyProjectCharacter::MoveRight);
@@ -225,6 +251,12 @@ void AMyProjectCharacter::DropCurrentWeapon()
 		{
 			CurrentWeapon()->RecoilComp->StopRecoil();
 		}
+
+		if (CurrentWeapon()->ScopeComp)
+		{
+			StopAimDownSight();
+		}
+
 		//Make sure the weapon gets effected by gravity
 		CurrentWeapon()->Owner = nullptr;
 		CurrentWeapon()->Mesh->SetSimulatePhysics(true);

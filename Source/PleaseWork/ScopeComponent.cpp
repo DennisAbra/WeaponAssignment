@@ -5,7 +5,7 @@
 #include "GameFramework/PlayerController.h"
 #include "GameFramework/Controller.h"
 #include "Camera/CameraComponent.h"
-#include "PleaseWorkCharacter.h"
+#include "MyProjectCharacter.h"
 
 // Sets default values for this component's properties
 UScopeComponent::UScopeComponent()
@@ -23,7 +23,7 @@ void UScopeComponent::ZoomIn(AController * Control)
 	{
 		APlayerController* MyController = Cast<APlayerController>(Control);
 
-		UCameraComponent* MyCamera = Cast<APleaseWorkCharacter>(MyController->GetPawn())->GetFirstPersonCameraComponent();
+		UCameraComponent* MyCamera = Cast<AMyProjectCharacter>(MyController->GetPawn())->GetFirstPersonCameraComponent();
 
 		BaseFOV = MyCamera->FieldOfView;
 
@@ -38,7 +38,7 @@ void UScopeComponent::ZoomOut(AController * Control)
 	{
 		APlayerController* MyController = Cast<APlayerController>(Control);
 
-		UCameraComponent* MyCamera = Cast<APleaseWorkCharacter>(MyController->GetPawn())->GetFirstPersonCameraComponent();
+		UCameraComponent* MyCamera = Cast<AMyProjectCharacter>(MyController->GetPawn())->GetFirstPersonCameraComponent();
 
 		MyCamera->FieldOfView = BaseFOV;
 

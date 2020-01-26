@@ -15,7 +15,7 @@ For examples on what you can create with the base, please check the "Projectiles
 
 Additionally you have 2 components that changes something with the weapon. 
 There is the recoil component that adds recoil when you shoot. You can ofcourse tweak some values on the component to get a stronger/weaker/longer recoil effect.
-The second one is a scope. This is the only component that you need to add functionality for through blueprint. To do so, you add the logic of when you would like it to be used and then call "ZoomIn" and "ZoomOut" as the component. 
+The second one is a scope. We have connected it to an "Aim" input. When you press the preassigned button you'll zoom in if your weapon have a scope. When you release the button it will zoom out.
 
 Everything except the Scope should be drag and drop to play and you can play around with different things to create weapons. 
 For example: To make a shotgun you can choose the FireType on the base weapon to be BurstFire. Set a short time on TimeBetweenBurst and then add a spread on the hitscan component. 
@@ -38,5 +38,5 @@ Controls:
 
 Pick up weapon - Walk to it
 Scroll weapon - Scrool Mousewheel
-Use Scope - Press Mousewheel
+Use Scope - Right Mouse Button
 Throw weapon - Q

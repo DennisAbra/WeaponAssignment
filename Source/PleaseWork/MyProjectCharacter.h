@@ -30,6 +30,9 @@ class PLEASEWORK_API AMyProjectCharacter : public ACharacter
 	void ChangeWeapon(float direction, bool droppedWeapon = false);
 	void AddWeapon(AWeapon* weapon);
 
+	void AimDownSight();
+	void StopAimDownSight();
+
 	UFUNCTION(BlueprintCallable)
 		class AWeapon* CurrentWeapon();
 public:

@@ -74,6 +74,8 @@ void AWeapon::BeginPlay()
 
 	RecoilComp = FindComponentByClass<URecoilComponent>();
 
+	ScopeComp = FindComponentByClass<UScopeComponent>();
+
 	Super::BeginPlay();
 }
 
@@ -162,6 +164,7 @@ void AWeapon::HandleCooldownBetweenShots()
 		}
 	}
 }
+
 
 void AWeapon::PlayFireSFX()
 {
